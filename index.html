@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiếng Anh THCS</title>
+<meta name="description" content="Học Tiếng Anh lớp 6, 7, 8, 9 theo từng Unit: từ vựng có hình, ngữ pháp, hội thoại, trò chơi, bài tập, luyện nghe nói và chấm điểm.">
+<meta name="theme-color" content="#3D5AFE">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="common/lesson.css">
+<style>
+.top{background:linear-gradient(135deg,#3D5AFE,#6C47FF);color:#fff;padding:34px 0 28px}
+.top h1{font-size:clamp(28px,6vw,42px)}
+.top p{opacity:.92;margin-top:6px;max-width:640px}
+.top .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.top .row a,.top .row button{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 14px;text-decoration:none;font-weight:600}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:20px 0 8px}
+.tab{border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:12px 8px;font-weight:800;font-size:18px}
+.tab small{display:block;font-weight:600;font-size:12px;color:var(--ink-soft)}
+.tab[aria-selected="true"]{background:var(--coral);color:#fff;border-color:var(--coral)}
+.tab[aria-selected="true"] small{color:#E0E5FF}
+.units{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:12px 0 24px}
+.unit{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 12px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
+.unit:hover{border-color:var(--coral);transform:translateY(-2px)}
+.unit .emo{grid-row:1/4;font-size:36px;width:52px;height:52px;display:grid;place-items:center;background:var(--accent-soft);border-radius:12px}
+.unit .u{font-size:13px;font-weight:700;color:var(--coral)}
+.unit h3{font-size:18px}
+.unit .w{grid-column:1/3;font-size:13px;color:var(--ink-soft);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unit .best{font-size:13px;font-weight:700;color:var(--grass)}
+.empty{background:var(--paper);border:1px dashed var(--line);border-radius:16px;padding:20px;text-align:center;color:var(--ink-soft)}
+.how{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:24px}
+.how ol{margin:8px 0 0;padding-left:20px;display:grid;gap:4px}
+@media (max-width:560px){.tab{font-size:16px;padding:10px 4px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>📚 Tiếng Anh THCS</h1>
+  <p>Học Tiếng Anh lớp 6 – 9 theo từng Unit: từ vựng có hình và phát âm, ngữ pháp, hội thoại, bài đọc, trò chơi, bài tập, luyện nghe – nói và chấm điểm thang 10.</p>
+  <div class="row"><a href="ket-qua.html">📊 Kết quả học</a><button id="refresh" type="button">🔄 Tìm bài mới</button><span id="starsAll" style="padding:6px 4px;font-weight:700"></span></div>
+</div></header>
+<main class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="units" id="units"></div>
+  <div class="how">
+    <b>Cách học một Unit</b>
+    <ol>
+      <li>Nghe từ vựng (bấm vào hình), đọc ngữ pháp và nghe hội thoại.</li>
+      <li>Chơi 2 trò chơi để nhớ từ, rồi làm bài tập (máy chấm ngay).</li>
+      <li>Luyện nghe, luyện nói với micro, cuối cùng bấm <b>Nộp bài</b> để lưu điểm.</li>
+    </ol>
+    <p class="muted" style="margin-top:8px">Nên dùng Chrome hoặc Edge để có giọng đọc và chấm phát âm. Có thể “Cài đặt / Thêm vào màn hình chính” để mở như ứng dụng.</p>
+  </div>
+</main>
+<footer>Tiếng Anh THCS · Ảnh minh hoạ: Microsoft Fluent Emoji (MIT)</footer>
+<script src="lessons.js"></script>
+<script>
+(function(){
+  var LS = window.LESSONS || [];
+  var GRADES = [6,7,8,9];
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  var results = []; try{ results = JSON.parse(get('results:v1')) || []; }catch(e){}
+  function best(id){ var b = null; results.forEach(function(r){ if(r.lesson===id && (b===null || r.score>b)) b = r.score; }); return b; }
+  var total = 0; LS.forEach(function(l){ total += parseInt(get('stars:'+l.id),10) || 0; });
+  document.getElementById('starsAll').textContent = '⭐ ' + total;
+
+  var cur = parseInt(get('grade'),10); if(GRADES.indexOf(cur) < 0) cur = 6;
+  var tabs = document.getElementById('tabs'), box = document.getElementById('units');
+  function draw(){
+    tabs.innerHTML = GRADES.map(function(g){
+      var n = LS.filter(function(l){ return l.grade===g; }).length;
+      return '<button class="tab" role="tab" aria-selected="'+(g===cur)+'" data-g="'+g+'">Lớp '+g+'<small>'+n+' bài</small></button>';
+    }).join('');
+    var list = LS.filter(function(l){ return l.grade===cur; });
+    box.innerHTML = list.length ? list.map(function(l){
+      var b = best(l.id);
+      return '<a class="unit" href="'+esc(l.path)+'"><span class="emo">'+esc(l.emoji)+'</span>'+
+        '<span class="u">Unit '+l.unit+(b!==null?' · <span class="best">🏅 '+String(b).replace('.',',')+'/10</span>':'')+'</span>'+
+        '<h3>'+esc(l.title)+'</h3><span class="muted">'+esc(l.vi)+'</span>'+
+        '<span class="w">'+esc(l.words.join(' · '))+'</span></a>';
+    }).join('') : '<div class="empty">Lớp '+cur+' chưa có bài. Bài mới sẽ được thêm dần theo sách giáo khoa.</div>';
+  }
+  tabs.addEventListener('click', function(e){ var t = e.target.closest('[data-g]'); if(!t) return; cur = +t.getAttribute('data-g'); set('grade',cur); draw(); });
+  draw();
+  document.getElementById('refresh').addEventListener('click', function(){ location.reload(); });
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
+})();
+</script>
+</body>
+</html>
