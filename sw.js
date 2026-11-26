@@ -1,6 +1,6 @@
 ﻿/* Lấy bản mới nhất khi có mạng, dùng bản đã lưu khi mất mạng. */
-var CACHE = 'tieng-anh-thcs-v1';
-var CORE = ['./', './index.html', './ket-qua.html', './lessons.js', './config.js', './common/tracker.js', './common/practice.js', './common/games.js', './common/lesson.js', './common/lesson.css', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
+var CACHE = 'tieng-anh-thcs-v2';
+var CORE = ['./', './index.html', './ket-qua.html', './lessons.js', './config.js', './common/tracker.js', './common/practice.js', './common/games.js', './common/lesson.js', './common/lesson.css', './manifest.webmanifest', './icons/icon-32.png', './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(CORE); }));
