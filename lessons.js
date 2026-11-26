@@ -13,11 +13,11 @@ window.LESSONS = [
    "uniform",
    "school bag",
    "compass",
-   "timetable",
-   "classroom",
-   "library",
+   "calculator",
+   "pencil case",
+   "pencil sharpener",
    "homework",
-   "maths",
+   "exercise",
    "science",
    "history"
   ]
@@ -32,16 +32,16 @@ window.LESSONS = [
   "date": "2026-11-26",
   "path": "2026-11-26/lop7-unit01-hobbies.html",
   "words": [
-   "gardening",
+   "building dollhouses",
    "horse riding",
+   "collecting coins",
+   "collecting teddy bears",
    "making models",
-   "collecting stamps",
-   "photography",
-   "cooking",
-   "painting",
-   "bird-watching",
-   "dancing",
-   "playing chess"
+   "gardening",
+   "jogging",
+   "yoga",
+   "judo",
+   "cooking"
   ]
  },
  {
@@ -55,15 +55,15 @@ window.LESSONS = [
   "path": "2026-11-26/lop8-unit01-leisure-time.html",
   "words": [
    "leisure time",
-   "hang out",
-   "surf the net",
-   "message",
-   "DIY",
+   "doing DIY",
    "knitting",
-   "cycling",
-   "puzzle",
-   "camping",
-   "addicted"
+   "doing puzzles",
+   "surfing the net",
+   "messaging friends",
+   "playing sport",
+   "cooking",
+   "hang out",
+   "cycling"
   ]
  },
  {
@@ -76,7 +76,7 @@ window.LESSONS = [
   "date": "2026-11-26",
   "path": "2026-11-26/lop9-unit01-local-community.html",
   "words": [
-   "community helper",
+   "suburb",
    "firefighter",
    "police officer",
    "delivery person",
@@ -85,7 +85,7 @@ window.LESSONS = [
    "craft village",
    "pottery",
    "artisan",
-   "facility"
+   "facilities"
   ]
  }
 ];
